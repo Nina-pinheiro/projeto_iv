@@ -1,0 +1,19 @@
+# Core data stack
+numpy
+pandas
+matplotlib
+
+# Machine learning / clustering
+scikit-learn
+
+# Google Cloud / BigQuery
+google-cloud-bigquery
+db-dtypes
+pyarrow
+
+# Time series
+statsmodels
+prophet
+
+# Notebook support
+jupyter
