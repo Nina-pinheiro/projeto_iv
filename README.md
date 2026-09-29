@@ -97,6 +97,11 @@ Até o momento foram concluídas:
 - análise de distância ao centróide;
 - aplicação complementar de DBSCAN;
 - comparação entre K-Means e DBSCAN.
+- preparação das séries diárias por imunobiológico (TOTAL, COV-19, INF3, INF4, HB, dT);
+- divisão temporal treino/teste (últimos 28 dias como teste);
+- baselines (ingênuo, sazonal ingênuo 7d, média por dia da semana);
+- SARIMA (busca de ordens, SARIMA(0,1,1)(0,1,1)₇ e variante em log) e Prophet;
+- comparação por RMSE e previsão dos 14 dias seguintes (01/08 a 14/08/2026).
 
 ## Principais resultados de clustering
 
@@ -121,22 +126,14 @@ Os clusters representam **perfis das aplicações de vacinas registradas nos CEP
 
 Eles não devem ser interpretados como descrição direta da composição demográfica da população residente, pois a base utilizada não contém denominadores populacionais por microárea.
 
-## Próxima etapa
+## Principais resultados de séries temporais
 
-A próxima etapa do projeto é a modelagem de séries temporais:
-
-```text
-Preparação da série
-   ↓
-Divisão temporal treino/teste
-   ↓
-Baseline
-   ↓
-ARIMA
-   ↓
-Prophet
-   ↓
-MAE / RMSE
-   ↓
-Comparação dos modelos
-```
+- A sazonalidade semanal domina todas as séries (quedas aos sábados e domingos).
+- O sazonal ingênuo foi o melhor modelo em COV-19 e INF4; o Prophet, em HB e dT;
+  o SARIMA em log foi usado no INF3.
+- No TOTAL, o Prophet teve o menor RMSE, mas projetou uma queda implausível de 44%;
+  por isso, a previsão futura usou o sazonal ingênuo.
+- Os modelos SARIMA aditivos geraram valores negativos nos fins de semana,
+  o que motivou a versão em log (efeito multiplicativo).
+- Limitações: uma única janela de teste, sem feriados ou campanhas como variáveis externas,
+  e previsão de doses aplicadas, não de cobertura.
